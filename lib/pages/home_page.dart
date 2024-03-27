@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plum_app/controllers/home_controller.dart';
 import 'package:plum_app/widgets/carousel_slider.dart';
+import 'package:plum_app/widgets/shop_category.dart';
 import 'package:plum_app/widgets/smooth_indicator.dart';
 import 'package:plum_app/widgets/rounded_image.dart';
 
@@ -30,6 +31,30 @@ class HomePage extends StatelessWidget {
     "Night Routine",
     "Offers",
     "Sale",
+  ];
+
+  final List<String> catImageAssets = [
+    "assets/images/bodycare.png",
+    "assets/images/gifting.png",
+    "assets/images/fragrance.png",
+    "assets/images/haircare.png",
+    "assets/images/makeup.png",
+  ];
+
+  final List<String> catNames = [
+    "Bodycare",
+    "Fragrance",
+    "Gifting",
+    "Haircare",
+    "Makeup",
+  ];
+
+  final List<Color> catColors = [
+    Colors.blue,
+    Colors.red,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
   ];
 
   @override
@@ -134,6 +159,26 @@ class HomePage extends StatelessWidget {
               buildCarouselSlider(context),
               const SizedBox(height: 20),
               buildSmoothIndicator(),
+              const SizedBox(height: 10),
+              Container(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.15,
+                ),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: imagePaths.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: ShopCategory(
+                        imagePath: catImageAssets[index],
+                        serviceName: catNames[index],
+                        backgroundColor: catColors[index],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
