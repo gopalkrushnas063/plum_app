@@ -1,18 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:plum_app/controllers/home_controller.dart';
+import 'package:plum_app/widgets/carousel_slider.dart';
+import 'package:plum_app/widgets/smooth_indicator.dart';
+import 'package:plum_app/widgets/rounded_image.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final HomeController _controller = Get.put(HomeController());
+
+  final List<String> imagePaths = [
+    "assets/images/body_mist.png",
+    "assets/images/Just_in.png",
+    "assets/images/night_routine.png",
+    "assets/images/offers.png",
+    "assets/images/Sale_Icon 1.png",
+  ];
+
+  final List<String> imageAssets = [
+    "assets/images/carousel_img.png",
+    "assets/images/carousel_img.png",
+    "assets/images/carousel_img.png",
+    "assets/images/carousel_img.png",
+    "assets/images/carousel_img.png",
+  ];
+
+  final List<String> serviceNames = [
+    "Body Mist",
+    "Just In",
+    "Night Routine",
+    "Offers",
+    "Sale",
+  ];
 
   @override
   Widget build(BuildContext context) {
-    List<String> imagePaths = [
-      "assets/images/body_mist.png",
-      "assets/images/Just_in.png",
-      "assets/images/night_routine.png",
-      "assets/images/offers.png",
-      "assets/images/Sale_Icon 1.png",
-    ];
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 10),
@@ -20,7 +41,7 @@ class HomePage extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withOpacity(0.3),
                 spreadRadius: 2,
                 blurRadius: 7,
                 offset: const Offset(0, 3),
@@ -72,56 +93,67 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 20.0, left: 16.0),
-              child: Text(
-                "hi plumster!",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 19.0,
-                  color: Color(0xFF5D0D8B),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0, left: 16.0),
+                child: Text(
+                  "hi plumster!",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 19.0,
+                    color: Color(0xFF5D0D8B),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: imagePaths.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: _buildRoundedImage(imagePaths[index]),
-                  );
-                },
+              const SizedBox(height: 10),
+              Container(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.15,
+                ),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: imagePaths.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: RoundedImage(
+                        imagePath: imagePaths[index],
+                        serviceName: serviceNames[index],
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 30,
+              ),
+              buildCarouselSlider(context),
+              const SizedBox(height: 20),
+              buildSmoothIndicator(),
+            ],
+          ),
         ),
       ),
     );
   }
-}
 
-Widget _buildRoundedImage(String imagePath) {
-  return Container(
-    width: 100,
-    height: 100,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(70),
-      border: Border.all(color: Color.fromARGB(255, 209, 125, 194),width: 2.5),
-    ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.asset(
-        imagePath,
-        fit: BoxFit.cover,
-      ),
-    ),
-  );
+  Widget buildCarouselSlider(BuildContext context) {
+    return CarouselSliderWidget(
+      imageAssets: imageAssets,
+      onPageChanged: (index, reason) {
+        _controller.onPageChanged(index);
+      },
+    );
+  }
+
+  Widget buildSmoothIndicator() {
+    return SmoothIndicator(
+      count: imageAssets.length,
+      currentIndex: _controller.currentIndex,
+    );
+  }
 }
