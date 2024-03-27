@@ -15,7 +15,7 @@ class CarouselSliderWidget extends StatelessWidget {
     return CarouselSlider.builder(
       itemCount: imageAssets.length,
       options: CarouselOptions(
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: MediaQuery.of(context).size.height * 0.34,
         autoPlay: true,
         enlargeCenterPage: true,
         enlargeStrategy: CenterPageEnlargeStrategy.height,
