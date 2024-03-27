@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
     "Gifting",
     "Haircare",
     "Makeup",
-     "Gifting",
+    "Gifting",
     "Haircare",
     "Makeup",
   ];
@@ -116,9 +116,29 @@ class HomePage extends StatelessWidget {
                       icon: const Icon(Icons.favorite_outline),
                       onPressed: () {},
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.shopping_cart_outlined),
-                      onPressed: () {},
+                    Stack(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.shopping_cart_outlined),
+                          onPressed: () {},
+                        ),
+                        const Positioned(
+                          top: -1,
+                          right: 15,
+                          child: CircleAvatar(
+                            backgroundColor:
+                                Colors.red,
+                            radius: 8,
+                            child: Text(
+                              '2',
+                              style: TextStyle(
+                                fontSize: 8,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
