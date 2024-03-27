@@ -18,31 +18,34 @@ class ShopCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: backgroundColor,
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              serviceName,
-              style: const TextStyle(
-                fontSize: 11,
+      child: Padding(
+        padding: const EdgeInsets.only(top:52.0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: backgroundColor,
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                serviceName,
+                style: const TextStyle(
+                  fontSize: 11,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(width: 8),
-            Image.asset(
-              imagePath,
-              height: 40,
-              width: 40,
-            ),
-          ],
+              const SizedBox(width: 8),
+              Image.asset(
+                imagePath,
+                height: 40,
+                width: 40,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -39,6 +39,9 @@ class HomePage extends StatelessWidget {
     "assets/images/fragrance.png",
     "assets/images/haircare.png",
     "assets/images/makeup.png",
+    "assets/images/fragrance.png",
+    "assets/images/haircare.png",
+    "assets/images/makeup.png",
   ];
 
   final List<String> catNames = [
@@ -47,14 +50,20 @@ class HomePage extends StatelessWidget {
     "Gifting",
     "Haircare",
     "Makeup",
+     "Gifting",
+    "Haircare",
+    "Makeup",
   ];
 
   final List<Color> catColors = [
-    Colors.blue,
-    Colors.red,
-    Colors.green,
-    Colors.orange,
-    Colors.purple,
+    const Color(0xFFE5EDCE),
+    const Color(0xFFD7F0F0),
+    const Color(0xFFE3CAEF),
+    const Color(0xFFD9B8AA),
+    const Color(0xFFCEEDE2),
+    const Color(0xFFC7D2F9),
+    const Color(0xFFFFBAE8),
+    const Color(0xFFF1E5B3),
   ];
 
   @override
@@ -159,7 +168,6 @@ class HomePage extends StatelessWidget {
               buildCarouselSlider(context),
               const SizedBox(height: 20),
               buildSmoothIndicator(),
-              const SizedBox(height: 10),
               Container(
                 constraints: BoxConstraints(
                   maxHeight: MediaQuery.of(context).size.height * 0.15,
@@ -169,7 +177,7 @@ class HomePage extends StatelessWidget {
                   itemCount: imagePaths.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: ShopCategory(
                         imagePath: catImageAssets[index],
                         serviceName: catNames[index],
