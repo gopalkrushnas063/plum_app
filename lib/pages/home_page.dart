@@ -132,11 +132,11 @@ class HomePage extends StatelessWidget {
                           onPressed: () {},
                         ),
                         const Positioned(
-                          top: -1,
-                          right: 15,
+                          top: 0,
+                          right: 17,
                           child: CircleAvatar(
                             backgroundColor: Colors.red,
-                            radius: 8,
+                            radius: 7,
                             child: Text(
                               '2',
                               style: TextStyle(
@@ -165,7 +165,7 @@ class HomePage extends StatelessWidget {
                 "hi plumster!",
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 19.0,
+                  fontSize: 21.0,
                   color: Color(0xFF5D0D8B),
                 ),
               ),

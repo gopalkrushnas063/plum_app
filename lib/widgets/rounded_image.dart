@@ -24,7 +24,7 @@ class RoundedImage extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
               border: Border.all(
-                color: Color.fromARGB(255, 209, 125, 194),
+                color: const Color.fromARGB(255, 209, 125, 194),
                 width: 3,
               ),
             ),
@@ -41,7 +41,7 @@ class RoundedImage extends StatelessWidget {
           ),
           Text(
             serviceName,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
             ),
             textAlign: TextAlign.center,
