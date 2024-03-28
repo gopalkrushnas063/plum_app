@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plum_app/controllers/home_controller.dart';
 import 'package:plum_app/widgets/carousel_slider.dart';
+import 'package:plum_app/widgets/custom_dialogue_image.dart';
 import 'package:plum_app/widgets/shop_category.dart';
 import 'package:plum_app/widgets/smooth_indicator.dart';
 import 'package:plum_app/widgets/rounded_image.dart';
 
 class HomePage extends StatelessWidget {
   final HomeController _controller = Get.put(HomeController());
+  final RxInt currentIndex = 0.obs;
 
   final List<String> imagePaths = [
     "assets/images/body_mist.png",
@@ -23,6 +25,12 @@ class HomePage extends StatelessWidget {
     "assets/images/carousel_img.png",
     "assets/images/carousel_img.png",
     "assets/images/carousel_img.png",
+  ];
+
+  final List<String> offersImg = [
+    "assets/images/offers_1.png",
+    "assets/images/offers_2.png",
+    "assets/images/offers_2.png",
   ];
 
   final List<String> serviceNames = [
@@ -93,11 +101,12 @@ class HomePage extends StatelessWidget {
                       width: 55,
                       height: 24,
                     ),
-                    const VerticalDivider(
-                      color: Colors.black,
-                      thickness: 1,
-                      indent: 5,
-                      endIndent: 5,
+                    const Padding(
+                      padding: EdgeInsets.only(left: 8.0, right: 5.0),
+                      child: Text("|",
+                          style: TextStyle(
+                            color: Colors.grey,
+                          )),
                     ),
                     Image.asset(
                       "assets/images/buff.png",
@@ -126,8 +135,7 @@ class HomePage extends StatelessWidget {
                           top: -1,
                           right: 15,
                           child: CircleAvatar(
-                            backgroundColor:
-                                Colors.red,
+                            backgroundColor: Colors.red,
                             radius: 8,
                             child: Text(
                               '2',
@@ -148,67 +156,165 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 20.0, left: 16.0),
-                child: Text(
-                  "hi plumster!",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 19.0,
-                    color: Color(0xFF5D0D8B),
-                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 20.0, left: 16.0),
+              child: Text(
+                "hi plumster!",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 19.0,
+                  color: Color(0xFF5D0D8B),
                 ),
               ),
-              const SizedBox(height: 10),
-              Container(
-                constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.15,
-                ),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: imagePaths.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.15,
+              ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: imagePaths.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  contentPadding: EdgeInsets.zero,
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: CustomeRoundedImage(
+                                                imagePath: imagePaths[0],
+                                                serviceName: "Offers",
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/Bookmark.png",
+                                                  width: 18,
+                                                  height: 18,
+                                                ),
+                                                IconButton(
+                                                  icon: const Icon(Icons.close),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Obx(() {
+                                            return LinearProgressIndicator(
+                                              minHeight: 7,
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color: const Color(0xFF5D0D8B),
+                                              value: currentIndex.value /
+                                                  (offersImg.length - 1),
+                                            );
+                                          }),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.65,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              if (currentIndex.value <
+                                                  offersImg.length - 1) {
+                                                currentIndex.value++;
+                                              }
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 0.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(20),
+                                                  bottomRight:
+                                                      Radius.circular(20),
+                                                ),
+                                                child: Image.asset(
+                                                  offersImg[currentIndex.value],
+                                                  fit: BoxFit.fitWidth,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
                       child: RoundedImage(
                         imagePath: imagePaths[index],
                         serviceName: serviceNames[index],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-              const SizedBox(
-                height: 30,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            buildCarouselSlider(context),
+            const SizedBox(height: 20),
+            buildSmoothIndicator(),
+            Container(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.15,
               ),
-              buildCarouselSlider(context),
-              const SizedBox(height: 20),
-              buildSmoothIndicator(),
-              Container(
-                constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.15,
-                ),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: imagePaths.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: ShopCategory(
-                        imagePath: catImageAssets[index],
-                        serviceName: catNames[index],
-                        backgroundColor: catColors[index],
-                      ),
-                    );
-                  },
-                ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: imagePaths.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ShopCategory(
+                      imagePath: catImageAssets[index],
+                      serviceName: catNames[index],
+                      backgroundColor: catColors[index],
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

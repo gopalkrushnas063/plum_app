@@ -19,7 +19,10 @@ class ShopCategory extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(top:52.0),
+        padding: const EdgeInsets.only(
+          top: 34.0,
+          bottom: 34.0,
+        ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -33,9 +36,8 @@ class ShopCategory extends StatelessWidget {
             children: [
               Text(
                 serviceName,
-                style: const TextStyle(
-                  fontSize: 11,
-                ),
+                style:
+                    const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(width: 8),

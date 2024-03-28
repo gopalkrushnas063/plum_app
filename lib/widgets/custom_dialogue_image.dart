@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class RoundedImage extends StatelessWidget {
+class CustomeRoundedImage extends StatelessWidget {
   final String imagePath;
   final String serviceName;
 
-  const RoundedImage({
+  const CustomeRoundedImage({
     required this.imagePath,
     required this.serviceName,
     Key? key,
@@ -13,36 +13,36 @@ class RoundedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 100,
-            height: 100,
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
               border: Border.all(
-                color: Color.fromARGB(255, 209, 125, 194),
-                width: 3,
+                color: const Color.fromARGB(255, 209, 125, 194),
+                width: 2.5,
               ),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                ),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
               ),
             ),
           ),
+          const SizedBox(width: 5),
           Text(
             serviceName,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF5D0D8B)
             ),
             textAlign: TextAlign.center,
           ),
